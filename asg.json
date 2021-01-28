@@ -10,6 +10,12 @@
       "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
     },
 
+    "SubnetId1": {
+      "Description" : "First Subnet to put ASG",
+      "Type": "AWS::EC2::Subnet",
+      "ConstraintDescription" : "must be subnetid"
+    },
+
     "InstanceType" : {
       "Description" : "WebServer EC2 instance type",
       "Type" : "String",
@@ -87,6 +93,17 @@
             	"SecurityGroups" : [ { "Ref" : "InstanceSecurityGroup" } ],
 	        "InstanceType" : {"Ref": "InstanceType"}
 	    }
+    },
+
+    "myASG" : {
+       "Type" : "AWS::AutoScaling::AutoScalingGroup",
+       "Properties" : {
+       		"VPCZoneIdentifier" : [ {"Ref": "SubnetId1"} ],
+	      	"LaunchConfigurationName" : { "Ref" : "mySimpleConfig" },
+	        "MinSize" : "2",
+	        "MaxSize" : "2",
+	        "DesiredCapacity" : "2"
+       }
     }
   },
 
