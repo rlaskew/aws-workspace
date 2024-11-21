@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## validate template
+aws cloudformation validate-template --template-body file://sample_ec2.yaml
+
 ## validate cf jason
 # aws cloudformation validate-template --template-body $ASGCFTFILE 
 
